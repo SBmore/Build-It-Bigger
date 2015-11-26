@@ -3,6 +3,7 @@ package com.udacity.gradle;
 public class JokeProvider {
 
     public String getJoke() {
-        return "What's brown and sticky? ... A stick!";
+        String joke1 = "What's brown and sticky? ... A stick!";
+        return joke1;
     }
 }

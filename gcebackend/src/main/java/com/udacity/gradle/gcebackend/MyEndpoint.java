@@ -9,6 +9,7 @@ package com.udacity.gradle.gcebackend;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
+import com.udacity.gradle.JokeProvider;
 
 import javax.inject.Named;
 
@@ -16,7 +17,7 @@ import javax.inject.Named;
  * An endpoint class we are exposing
  */
 @Api(
-        name = "myApi",
+        name = "jokeAPI",
         version = "v1",
         namespace = @ApiNamespace(
                 ownerDomain = "gcebackend.gradle.udacity.com",
@@ -37,4 +38,18 @@ public class MyEndpoint {
         return response;
     }
 
+    @ApiMethod(
+            name = "jokeAPI.loadJoke",
+            path = "jokeAPI"
+    )
+    public MyBean loadJoke() {
+        MyBean response = new MyBean();
+
+        JokeProvider jokeProvider = new JokeProvider();
+        String joke = jokeProvider.getJoke();
+
+        response.setData(joke);
+
+        return response;
+    }
 }

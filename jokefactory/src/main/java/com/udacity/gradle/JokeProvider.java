@@ -2,8 +2,13 @@ package com.udacity.gradle;
 
 public class JokeProvider {
 
-    public String getJoke() {
-        String joke1 = "What's brown and sticky? ... A stick!";
-        return joke1;
+    private static String [] jokeArray = {"What's brown and sticky? ... A stick!"};
+
+    public String getJoke(int index) {
+        if (index > -1 && index < jokeArray.length) {
+            return jokeArray[index];
+        } else {
+            return "Error: Index out of range";
+        }
     }
 }

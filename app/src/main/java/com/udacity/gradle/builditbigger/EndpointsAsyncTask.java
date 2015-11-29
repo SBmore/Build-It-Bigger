@@ -7,7 +7,7 @@ import android.util.Pair;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
-import com.udacity.gradle.gcebackend.jokeAPI.JokeAPI;
+import com.udacity.gradle.gcebackend.myJokeApi.MyJokeApi;
 
 import java.io.IOException;
 
@@ -17,13 +17,13 @@ import app.com.udacity.gradle.jokedisplay.JokeActivity;
  * Created by Steven on 28/11/2015.
  */
 public class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> {
-    private static JokeAPI myApiService = null;
+    private static MyJokeApi myApiService = null;
     private Context context;
 
     @Override
     protected String doInBackground(Pair<Context, String>... params) {
         if(myApiService == null) {  // Only do this once
-            JokeAPI.Builder builder = new JokeAPI.Builder(AndroidHttp.newCompatibleTransport(), new AndroidJsonFactory(), null)
+            MyJokeApi.Builder builder = new MyJokeApi.Builder(AndroidHttp.newCompatibleTransport(), new AndroidJsonFactory(), null)
                     .setRootUrl("https://build-it-bigger-1143.appspot.com/_ah/api/");
 
             myApiService = builder.build();
@@ -32,7 +32,7 @@ public class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, S
         context = params[0].first;
 
         try {
-            return myApiService.jokeAPI().loadJoke().execute().getData();
+            return myApiService.setMyJoke(0).execute().getMyJoke();
         } catch (IOException e) {
             return e.getMessage();
         }

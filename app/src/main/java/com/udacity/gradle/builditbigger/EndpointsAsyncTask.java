@@ -48,6 +48,7 @@ public class EndpointsAsyncTask extends AsyncTask<Pair<Context, Integer>, Void, 
         if (this.mListener != null) {
             this.mListener.onComplete(result, mError);
         }
+
         Intent jokeIntent = new Intent(context, JokeActivity.class);
         jokeIntent.putExtra(JokeActivity.JOKE_TAG, result);
 

@@ -12,6 +12,8 @@ import android.view.View;
 public class MainActivity extends ActionBarActivity {
 
     public final static int TEST_JOKE = 0;
+    public final static int RANDOM_JOKE = -1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,6 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void tellJoke(View view) {
-        new EndpointsAsyncTask().execute(new Pair<Context, Integer>(this, TEST_JOKE));
+        new EndpointsAsyncTask().execute(new Pair<Context, Integer>(this, RANDOM_JOKE));
     }
 }

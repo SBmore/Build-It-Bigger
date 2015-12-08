@@ -11,7 +11,6 @@ public class MainActivity extends ActionBarActivity {
     public final static int TEST_JOKE = 0;
     public final static int RANDOM_JOKE = -1;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

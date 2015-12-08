@@ -16,10 +16,11 @@ import java.util.concurrent.CountDownLatch;
  */
 public class AsyncTaskAndroidTest extends ApplicationTestCase<Application> {
 
-    private static final String TEST_JOKE_STRING = "What's brown and sticky? ... A stick!";
-    String mJokeString = null;
-    Exception mError = null;
-    CountDownLatch signal = null;
+    private static final String ASYNC_TEST_TAG = "ASYNC_TEST_TAG";
+    private static final String TEST_JOKE_STRING = "What's brown and sticky?\n\nA stick!";
+    private String mJokeString = null;
+    private Exception mError = null;
+    private CountDownLatch signal = null;
 
     public AsyncTaskAndroidTest() {
         super(Application.class);
@@ -53,6 +54,6 @@ public class AsyncTaskAndroidTest extends ApplicationTestCase<Application> {
         assertNull(mError);
         assertFalse(TextUtils.isEmpty(mJokeString));
         assertTrue(mJokeString.equals(TEST_JOKE_STRING));
-        Log.i("", TEST_JOKE_STRING);
+        Log.i(ASYNC_TEST_TAG, "Returned joke: " + mJokeString);
     }
 }

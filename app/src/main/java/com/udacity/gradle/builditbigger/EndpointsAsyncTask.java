@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Pair;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
@@ -18,10 +20,29 @@ import app.com.udacity.gradle.jokedisplay.JokeActivity;
  * Created by Steven on 28/11/2015.
  */
 public class EndpointsAsyncTask extends AsyncTask<Pair<Context, Integer>, Void, String> {
+    private final static String ENDPOINTS_TAG = "ENDPOINTS_TAG";
     private EndpointAsyncListener mListener = null;
     private static MyJokeApi myApiService = null;
     private Exception mError = null;
     private Context context;
+    private ProgressBar mSpinner;
+
+    public EndpointsAsyncTask(View view) {
+        mSpinner = (ProgressBar) view.findViewById(R.id.joke_progress_bar);
+    }
+
+    // for the Connected Check as the view isn't needed
+    public EndpointsAsyncTask() {
+        mSpinner = null;
+    }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        if (mSpinner != null) {
+            mSpinner.setVisibility(View.VISIBLE);
+        }
+    }
 
     @Override
     protected String doInBackground(Pair<Context, Integer>... params) {
@@ -56,6 +77,11 @@ public class EndpointsAsyncTask extends AsyncTask<Pair<Context, Integer>, Void, 
         if (context instanceof Activity) {
             context.startActivity(jokeIntent);
         }
+
+
+        if (mSpinner != null) {
+            mSpinner.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -63,6 +89,10 @@ public class EndpointsAsyncTask extends AsyncTask<Pair<Context, Integer>, Void, 
         if (this.mListener != null) {
             mError = new InterruptedException("EndpointsAsyncTask cancelled");
             this.mListener.onComplete(null, mError);
+        }
+
+        if (mSpinner != null) {
+            mSpinner.setVisibility(View.GONE);
         }
     }
 
@@ -73,6 +103,6 @@ public class EndpointsAsyncTask extends AsyncTask<Pair<Context, Integer>, Void, 
 
     // This listener is used in AsyncTaskAndroidTest to test the AsyncTask
     public interface EndpointAsyncListener {
-        void onComplete(String jsonString, Exception e);
+        void onComplete(String result, Exception e);
     }
 }

@@ -40,5 +40,18 @@ dependencies {
     freeCompile 'com.google.android.gms:play-services:8.3.0'
     compile project(path: ':gcebackend', configuration: 'android-endpoints')
     compile project(':jokedisplay')
-    // Added for AdMob
+}
+
+task connectedTestsWithServer(
+        dependsOn: [":gcebackend:appengineRun",":gcebackend:appengineStop",":app:connectedCheck"]) {
+    evaluationDependsOn ":gcebackend"
+
+    tasks.getByPath(":app:connectedCheck").mustRunAfter(':gcebackend:appengineRun')
+    tasks.getByPath(":gcebackend:appengineStop").mustRunAfter(':app:connectedCheck')
+
+    project(":gcebackend") {
+        appengine {
+            daemon true
+        }
+    }
 }

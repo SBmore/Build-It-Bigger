@@ -21,7 +21,8 @@ import com.google.android.gms.ads.InterstitialAd;
  */
 public class MainActivityFragment extends Fragment {
 
-    InterstitialAd mInterstitialAd;
+    private InterstitialAd mInterstitialAd;
+    private View mRoot;
 
     public MainActivityFragment() {
     }
@@ -29,11 +30,11 @@ public class MainActivityFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_main, container, false);
+        mRoot = inflater.inflate(R.layout.fragment_main, container, false);
 
+        // Interstitial Ad
         mInterstitialAd = new InterstitialAd(getContext());
         mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
-
         mInterstitialAd.setAdListener(new AdListener() {
             @Override
             public void onAdClosed() {
@@ -41,10 +42,17 @@ public class MainActivityFragment extends Fragment {
                 tellJoke();
             }
         });
-
         requestNewInterstitial();
 
-        Button jokeButton = (Button) root.findViewById(R.id.joke_button);
+        // Banner Ad
+        AdView mAdView = (AdView) mRoot.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .build();
+        mAdView.loadAd(adRequest);
+
+        // Joke button
+        Button jokeButton = (Button) mRoot.findViewById(R.id.joke_button);
         jokeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,15 +64,7 @@ public class MainActivityFragment extends Fragment {
             }
         });
 
-        AdView mAdView = (AdView) root.findViewById(R.id.adView);
-        // Create an ad request. Check logcat output for the hashed device ID to
-        // get test ads on a physical device. e.g.
-        // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .build();
-        mAdView.loadAd(adRequest);
-        return root;
+        return mRoot;
     }
 
     private void requestNewInterstitial() {
@@ -76,6 +76,6 @@ public class MainActivityFragment extends Fragment {
     }
 
     public void tellJoke() {
-        new EndpointsAsyncTask().execute(new Pair<Context, Integer>(getContext(), MainActivity.RANDOM_JOKE));
+        new EndpointsAsyncTask(mRoot).execute(new Pair<Context, Integer>(getContext(), MainActivity.RANDOM_JOKE));
     }
 }

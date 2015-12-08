@@ -15,15 +15,17 @@ import android.widget.Button;
  */
 public class MainActivityFragment extends Fragment {
 
+    private View mRoot;
+
     public MainActivityFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_main, container, false);
+        mRoot = inflater.inflate(R.layout.fragment_main, container, false);
 
-        Button jokeButton = (Button) root.findViewById(R.id.joke_button);
+        Button jokeButton = (Button) mRoot.findViewById(R.id.joke_button);
         jokeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -31,10 +33,10 @@ public class MainActivityFragment extends Fragment {
             }
         });
 
-        return root;
+        return mRoot;
     }
 
     public void tellJoke() {
-        new EndpointsAsyncTask().execute(new Pair<Context, Integer>(getContext(), MainActivity.RANDOM_JOKE));
+        new EndpointsAsyncTask(mRoot).execute(new Pair<Context, Integer>(getContext(), MainActivity.RANDOM_JOKE));
     }
 }

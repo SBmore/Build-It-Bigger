@@ -2,5 +2,13 @@
     <string name="app_name">Build it Bigger</string>
     <string name="button_text">Make me Laugh!</string>
     <string name="action_settings">Settings</string>
+
+    <!-- Keys and URLs -->
     <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="interstitial_ad_unit_id">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="api_root_url">https://build-it-bigger-1143.appspot.com/_ah/api/</string>
+
+    <!-- Errors -->
+    <string name="err_task_cancelled">EndpointsAsyncTask cancelled</string>
+    <string name="err_no_network">Please connect to the internet to have your ribs tickled!</string>
 </resources>

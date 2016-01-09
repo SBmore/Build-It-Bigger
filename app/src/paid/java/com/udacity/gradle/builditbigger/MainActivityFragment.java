@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 
 /**
@@ -29,7 +30,14 @@ public class MainActivityFragment extends Fragment {
         jokeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tellJoke();
+                if (Utility.isNetworkAvailable(getContext())) {
+                    tellJoke();
+                } else {
+                    int duration = Toast.LENGTH_SHORT;
+                    CharSequence text = getString(R.string.err_no_network);
+                    Toast toast = Toast.makeText(getContext(), text, duration);
+                    toast.show();
+                }
             }
         });
 

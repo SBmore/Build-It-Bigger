@@ -46,15 +46,15 @@ public class EndpointsAsyncTask extends AsyncTask<Pair<Context, Integer>, Void, 
 
     @Override
     protected String doInBackground(Pair<Context, Integer>... params) {
-        if(myApiService == null) {  // Only do this once
+        context = params[0].first;
+        int index = params[0].second;
+
+        if (myApiService == null) {  // Only do this once
             MyJokeApi.Builder builder = new MyJokeApi.Builder(AndroidHttp.newCompatibleTransport(), new AndroidJsonFactory(), null)
-                    .setRootUrl("https://build-it-bigger-1143.appspot.com/_ah/api/");
+                    .setRootUrl(context.getString(R.string.api_root_url));
 
             myApiService = builder.build();
         }
-
-        context = params[0].first;
-        int index  = params[0].second;
 
         try {
             return myApiService.setMyJoke(index).execute().getMyJoke();
@@ -87,7 +87,7 @@ public class EndpointsAsyncTask extends AsyncTask<Pair<Context, Integer>, Void, 
     @Override
     protected void onCancelled() {
         if (this.mListener != null) {
-            mError = new InterruptedException("EndpointsAsyncTask cancelled");
+            mError = new InterruptedException(context.getString(R.string.err_task_cancelled));
             this.mListener.onComplete(null, mError);
         }
 

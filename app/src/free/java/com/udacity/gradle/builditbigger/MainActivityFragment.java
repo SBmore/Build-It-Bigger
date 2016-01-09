@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
@@ -34,7 +35,7 @@ public class MainActivityFragment extends Fragment {
 
         // Interstitial Ad
         mInterstitialAd = new InterstitialAd(getContext());
-        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        mInterstitialAd.setAdUnitId(getString(R.string.interstitial_ad_unit_id));
         mInterstitialAd.setAdListener(new AdListener() {
             @Override
             public void onAdClosed() {
@@ -56,10 +57,18 @@ public class MainActivityFragment extends Fragment {
         jokeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mInterstitialAd.isLoaded()) {
-                    mInterstitialAd.show();
+                if (Utility.isNetworkAvailable(getContext())) {
+                    if (mInterstitialAd.isLoaded()) {
+                        mInterstitialAd.show();
+                    } else {
+                        requestNewInterstitial();
+                        tellJoke();
+                    }
                 } else {
-                    tellJoke();
+                    int duration = Toast.LENGTH_SHORT;
+                    CharSequence text = getString(R.string.err_no_network);
+                    Toast toast = Toast.makeText(getContext(), text, duration);
+                    toast.show();
                 }
             }
         });

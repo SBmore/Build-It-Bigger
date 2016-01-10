@@ -1,4 +1,4 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -6,50 +6,35 @@
     android:orientation="vertical"
     tools:context=".MainActivityFragment">
 
-    <Button
-        android:id="@+id/joke_button"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_gravity="center"
-        android:background="@drawable/joke_button"
-        android:elevation="8dp"
-        android:shadowColor="@color/primary_light"
-        android:text="@string/button_text"
-        android:textColor="@color/primary_text"
-        android:textSize="24sp" />
-
-    <LinearLayout xmlns:tools="http://schemas.android.com/tools"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/primary_light"
-        android:orientation="vertical"
-        tools:context=".MainActivityFragment">
+        android:layout_weight="0.7">
 
-        <LinearLayout xmlns:tools="http://schemas.android.com/tools"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.5"
-            android:background="@color/primary"
-            android:orientation="vertical"
-            android:paddingBottom="32dp"
-            android:elevation="8dp" >
+        <ProgressBar
+            android:id="@+id/joke_progress_bar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone" />
+    </FrameLayout>
 
-            <ProgressBar
-                android:id="@+id/joke_progress_bar"
-                style="?android:attr/progressBarStyleLarge"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:visibility="gone" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.3">
 
-        </LinearLayout>
+        <Button
+            android:id="@+id/joke_button"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/joke_button"
+            android:shadowColor="@color/primary_light"
+            android:text="@string/button_text"
+            android:textColor="@color/primary_text"
+            android:textSize="24sp" />
+    </FrameLayout>
 
-        <LinearLayout xmlns:tools="http://schemas.android.com/tools"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.5"
-            android:orientation="vertical">
-
-        </LinearLayout>
-    </LinearLayout>
-</FrameLayout>
+</LinearLayout>

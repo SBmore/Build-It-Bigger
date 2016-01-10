@@ -1,0 +1,68 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary_light"
+    android:orientation="vertical"
+    tools:context=".MainActivityFragment">
+
+    <Button
+        android:id="@+id/joke_button"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:background="@drawable/joke_button"
+        android:elevation="8dp"
+        android:shadowColor="@color/primary_light"
+        android:text="@string/button_text"
+        android:textColor="@color/primary_text"
+        android:textSize="24sp" />
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/primary_light"
+        android:orientation="vertical"
+        tools:context=".MainActivityFragment">
+
+        <FrameLayout xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.6"
+            android:background="@color/primary"
+            android:orientation="vertical"
+            android:paddingBottom="32dp"
+            android:elevation="8dp" >
+
+            <ProgressBar
+                android:id="@+id/joke_progress_bar"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="gone" />
+
+        </FrameLayout>
+
+        <LinearLayout xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.4"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="0.1"
+            ads:adSize="BANNER"
+            ads:adUnitId="@string/banner_ad_unit_id">
+
+        </com.google.android.gms.ads.AdView>
+    </LinearLayout>
+</FrameLayout>

@@ -17,3 +17,18 @@ allprojects {
         jcenter()
     }
 }
+
+
+task connectedTestsWithServer(
+        dependsOn: [":gcebackend:appengineRun",":gcebackend:appengineStop",":app:connectedCheck"]) {
+    evaluationDependsOn ":gcebackend"
+
+    tasks.getByPath(":app:connectedCheck").mustRunAfter(':gcebackend:appengineRun')
+    tasks.getByPath(":gcebackend:appengineStop").mustRunAfter(':app:connectedCheck')
+
+    project(":gcebackend") {
+        appengine {
+            daemon true
+        }
+    }
+}

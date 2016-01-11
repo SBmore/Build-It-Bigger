@@ -61,7 +61,7 @@ public class MainActivityFragment extends Fragment {
                     if (mInterstitialAd.isLoaded()) {
                         mInterstitialAd.show();
                     } else {
-                        requestNewInterstitial();
+                        requestNewInterstitial();  // make sure there is one available next time
                         tellJoke();
                     }
                 } else {
